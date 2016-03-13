@@ -23,12 +23,11 @@ public class AdminController {
     private RoleRepository roleRepository;
 
     @RequestMapping
-    public ModelAndView listOfUsers() {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView listUsers() {
+        ModelAndView modelAndView = new ModelAndView("admin");
 
         List<User> users = userRepository.findAll();
         modelAndView.addObject("users", users);
-
         return modelAndView;
     }
 
@@ -45,6 +44,7 @@ public class AdminController {
         User user = userRepository.findOne(id);
         ModelAndView modelAndView = new ModelAndView("editUser");
         modelAndView.addObject("user", user);
+        modelAndView.addObject("selectedRoleId", user.getRole().getId());
         modelAndView.addObject("roles", roleRepository.findAll());
         return modelAndView;
     }
@@ -67,10 +67,12 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
-    public String deleteUser(@ModelAttribute User user, @PathVariable Long id, RedirectAttributes redirectAttributes) {
-        userRepository.delete(user);
-        redirectAttributes.addFlashAttribute("message", "User was successfully removed.");
-        return "redirect:/admin";
+    @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.DELETE)
+    public
+    @ResponseBody
+    String deleteUser(@ModelAttribute User user, @PathVariable Long id) {
+        userRepository.delete(id);
+        return "success";
     }
+
 }

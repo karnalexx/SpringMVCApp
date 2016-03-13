@@ -10,10 +10,10 @@ public class Role {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name="user_role",
-            joinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
     private Set<User> users;
 
@@ -45,5 +45,10 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return role.replaceAll("ROLE_", "");
     }
 }

@@ -1,39 +1,73 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/css/style.css"/>
-    <title>Admin</title>
+    <jsp:include page="import.jsp"/>
+
+    <title>Manage Users</title>
+
+    <script>
+        function deleteUser(id) {
+            bootbox.confirm('Delete User?', function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/admin/deleteUser/" + id,
+                        type: 'DELETE',
+                        success: function (data) {
+                            $("#user" + id).remove();
+                        },
+                        fail: function (err) {
+                            console.log(err);
+                        }
+                    })
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('.nav-pills li#admin').addClass('active');
+        });
+    </script>
 </head>
 
 <body>
-<jsp:include page="menu.jsp"/>
-<h1 id="banner">Admin</h1>
-<hr/>
-<p>${message}</p>
-<a href="${pageContext.request.contextPath}/admin/addUser">Add new user</a><br/>
-<table>
-<tr>
-    <th>USERNAME</th>
-    <th>EMAIL</th>
-    <th>FIRST NAME</th>
-    <th>LAST NAME</th>
-    <th>ROLE</th>
-    <th></th>
-</tr>
-<c:forEach var="user" items="${users}">
-    <tr>
-        <td>${user.username}</td>
-        <td>${user.email}</td>
-        <td>${user.firstName}</td>
-        <td>${user.lastName}</td>
-        <td>${user.role.role}</td>
-        <td>
-            <a href="${pageContext.request.contextPath}/admin/editUser/${user.id}">Edit</a><br/>
-            <a href="${pageContext.request.contextPath}/admin/deleteUser/${user.id}">Delete</a><br/>
-        </td>
-    </tr>
-</c:forEach>
-</table>
+<div class="container">
+    <div class="page-header">
+        <h1>Manage Users</h1>
+    </div>
+    <jsp:include page="menu.jsp"/>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <a class="btn btn-info" role="button" href="${pageContext.request.contextPath}/admin/addUser">Add new
+                user</a>
+        </div>
+    </div>
+    <table id="users" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>USERNAME</th>
+            <th>EMAIL</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>ROLE</th>
+            <th>ACTION</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="user" items="${users}">
+            <tr id="user${user.id}">
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.role}</td>
+                <td>
+                    <a href="${pageContext.request.contextPath}/admin/editUser/${user.id}">Edit</a><br/>
+                    <a href="#" onclick="deleteUser('${user.id}');">Delete</a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

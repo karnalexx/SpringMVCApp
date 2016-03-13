@@ -4,28 +4,51 @@
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" media="screen" href="resources/css/style.css"/>
-	<title>Login</title>
+    <jsp:include page="../import.jsp"/>
+    <title>Login</title>
 </head>
-
 <body>
-	<form class="login-form" action="j_spring_security_check" method="post" >
-		<fieldset>
-			<legend>Login Here</legend>
-			
-			<p>
-			<label for="j_username">Username</label>:
-			<input id="j_username" name="j_username" size="20" maxlength="50" type="text"/>
-			</p>
-			
-			<p>
-			<label for="j_password">Password</label>:
-			<input id="j_password" name="j_password" size="20" maxlength="50" type="password"/>
-			</p>
-			
-			<p><input type="submit" value="Login"/></p>
-		</fieldset>
-	</form>
-	<p class="message">${message}</p>
+<div class="container">
+    <div class="page-header">
+        <h1>Login</h1>
+    </div>
+
+    <c:if test="${not empty message}">
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>${message}</strong>
+        </div>
+    </c:if>
+
+    <div class="well">
+        <form class="form-horizontal" role="form" action="j_spring_security_check" method="post">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="j_username">Username:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="j_username" name="j_username" size="10" maxlength="10" type="text"
+                           placeholder="Username"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="j_password">Password:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="j_password" name="j_password" size="10" maxlength="10"
+                           type="password"
+                           placeholder="Enter password"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Login</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
