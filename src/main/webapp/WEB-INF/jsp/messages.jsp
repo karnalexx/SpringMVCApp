@@ -25,7 +25,7 @@
                         success: function (data) {
                             $("#message" + id).remove();
                         },
-                        fail: function (err) {
+                        error: function (err) {
                             console.log(err);
                         }
                     })
@@ -48,35 +48,39 @@
         <h1>Messages</h1>
     </div>
     <jsp:include page="menu.jsp"/>
-    <table id="messages" class="table table-bordered table-hover sortable">
-        <thead>
-        <tr>
-            <th data-sortcolumn="1">FROM</th>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <th>TO</th>
-            </sec:authorize>
-            <th>DATE</th>
-            <th>SUBJECT</th>
-            <th>ACTION</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="msg" items="${messages}" varStatus="loop">
-            <tr id="message${msg.id}"
-                onclick="showMessage('${msg.from}', '${msg.date}', '${msg.subject}', '${msg.text}');">
-                <td>${msg.from}</td>
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <td>${msg.to}</td>
-                </sec:authorize>
-                <td>${msg.date}</td>
-                <td>${msg.subject}</td>
-                <td>
-                    <a href="#" onclick="deleteMessage('${msg.id}');">Delete</a><br/>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table id="messages" class="table table-bordered table-hover sortable">
+                <thead>
+                <tr>
+                    <th data-sortcolumn="1">FROM</th>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <th>TO</th>
+                    </sec:authorize>
+                    <th>DATE</th>
+                    <th>SUBJECT</th>
+                    <th>ACTION</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="msg" items="${messages}" varStatus="loop">
+                    <tr id="message${msg.id}"
+                        onclick="showMessage('${msg.from}', '${msg.date}', '${msg.subject}', '${msg.text}');">
+                        <td>${msg.from}</td>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <td>${msg.to}</td>
+                        </sec:authorize>
+                        <td>${msg.date}</td>
+                        <td>${msg.subject}</td>
+                        <td>
+                            <a href="#" onclick="deleteMessage('${msg.id}');">Delete</a><br/>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <!-- Message Modal Dialog -->

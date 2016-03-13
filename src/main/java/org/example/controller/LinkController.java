@@ -16,19 +16,14 @@ public class LinkController {
     public String getIndexPage() {
         return "home";
     }
-	
-	@RequestMapping(value="/user")
+
+	@RequestMapping("/user")
 	public String getUserPage() {
 		return "user";
 	}
-	
-	@RequestMapping(value="/admin")
+
+	@RequestMapping("/admin")
 	public String getAdminPage() {
 		return "admin";
 	}
-
-    @RequestMapping(value="/manager")
-    public String getManagerPage() {
-        return "manager";
-    }
 }

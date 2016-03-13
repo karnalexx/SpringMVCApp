@@ -8,4 +8,3 @@
 <script src="${pageContext.request.contextPath}/resources/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootbox.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
-

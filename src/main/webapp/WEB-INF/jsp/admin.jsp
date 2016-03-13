@@ -13,9 +13,10 @@
                         url: "${pageContext.request.contextPath}/admin/deleteUser/" + id,
                         type: 'DELETE',
                         success: function (data) {
+                            console.log(data);
                             $("#user" + id).remove();
                         },
-                        fail: function (err) {
+                        error: function (err) {
                             console.log(err);
                         }
                     })
@@ -37,37 +38,38 @@
     <jsp:include page="menu.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">
-            <a class="btn btn-info" role="button" href="${pageContext.request.contextPath}/admin/addUser">Add new
+            <a style="margin-bottom: 10px;" class="btn btn-info" role="button"
+               href="${pageContext.request.contextPath}/admin/addUser">Add new
                 user</a>
+            <table id="users" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>USERNAME</th>
+                    <th>EMAIL</th>
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>ROLE</th>
+                    <th>ACTION</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="user" items="${users}">
+                    <tr id="user${user.id}">
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.role}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/admin/editUser/${user.id}">Edit</a><br/>
+                            <a href="#" onclick="deleteUser('${user.id}');">Delete</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
-    <table id="users" class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>USERNAME</th>
-            <th>EMAIL</th>
-            <th>FIRST NAME</th>
-            <th>LAST NAME</th>
-            <th>ROLE</th>
-            <th>ACTION</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="user" items="${users}">
-            <tr id="user${user.id}">
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-                <td>${user.firstName}</td>
-                <td>${user.lastName}</td>
-                <td>${user.role}</td>
-                <td>
-                    <a href="${pageContext.request.contextPath}/admin/editUser/${user.id}">Edit</a><br/>
-                    <a href="#" onclick="deleteUser('${user.id}');">Delete</a>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
 </div>
 </body>
 </html>

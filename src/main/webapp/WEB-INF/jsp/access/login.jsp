@@ -40,11 +40,8 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-default">Login</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Login</button>
+                    <a class="btn btn-info" role="button"
+                       href="${pageContext.request.contextPath}/register">Register</a>
                 </div>
             </div>
         </form>
